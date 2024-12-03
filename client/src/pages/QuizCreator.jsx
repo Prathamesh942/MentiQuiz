@@ -74,16 +74,13 @@ const QuizCreator = () => {
     try {
       console.log(aiPrompt, numQuestions, defaultTime);
 
-      const response = await axios.get(
-        "http://localhost:3000/api/generate-quiz",
-        {
-          params: {
-            prompt: aiPrompt,
-            numQuestions: numQuestions,
-            time: defaultTime,
-          },
-        }
-      );
+      const response = await axios.get("/api/generate-quiz", {
+        params: {
+          prompt: aiPrompt,
+          numQuestions: numQuestions,
+          time: defaultTime,
+        },
+      });
       setQuestions(response.data);
       console.log("AI-generated questions added successfully!", response.data);
     } catch (error) {
@@ -104,10 +101,7 @@ const QuizCreator = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/quiz",
-        quizData
-      );
+      const response = await axios.post("/api/v1/quiz", quizData);
       const quizId = response.data.roomId;
       alert("Quiz submitted successfully!");
       navigate(`/quiz/${quizId}`);

@@ -12,6 +12,11 @@ import "./App.css";
 import QuizCreator from "./pages/QuizCreator";
 import QuizPage from "./pages/QuizPage";
 import Landing from "./pages/Landing";
+import axios from "axios";
+
+// axios.defaults.baseURL = "https://documate-36bo.onrender.com";
+axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.withCredentials = true;
 
 function App() {
   const token = localStorage.getItem("authToken"); // Access token from AuthContext

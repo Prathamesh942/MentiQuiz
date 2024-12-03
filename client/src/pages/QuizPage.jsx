@@ -47,9 +47,7 @@ const QuizPage = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/quiz/${quizId}`
-        );
+        const response = await axios.get(`/api/quiz/${quizId}`);
         const quizData = response.data;
         setIsCreator(localUser === quizData.creator);
         setQuiz(quizData);
@@ -111,7 +109,7 @@ const QuizPage = () => {
   }, [quizId]);
 
   const handleStartQuiz = async () => {
-    await axios.post(`http://localhost:3000/api/quiz/${quizId}/start`);
+    await axios.post(`/api/quiz/${quizId}/start`);
   };
 
   const handleAnswer = (answer) => {
