@@ -3,8 +3,6 @@ import axios from "axios";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -13,6 +11,7 @@ const AuthPage = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const { setToken } = useContext(AuthContext);
 
