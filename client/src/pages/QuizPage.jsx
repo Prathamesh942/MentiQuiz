@@ -236,7 +236,7 @@ const QuizPage = () => {
                 />
               </div>
             )}
-            <div className="relative z-20">
+            <div className="relative ">
               <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
                 Final Leaderboard
               </h2>
