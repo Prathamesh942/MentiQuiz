@@ -99,6 +99,7 @@ const QuizCreator = () => {
         time: question.time,
       })),
     };
+    console.log("submit button pressed");
 
     try {
       const response = await axios.post("/api/v1/quiz", quizData);

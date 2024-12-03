@@ -73,6 +73,7 @@ const QuizPage = () => {
     });
 
     socket.on("question", (question, index) => {
+      console.log("question received");
       setShowQuestion(true);
       setCurrentQuestion(question);
       setQuestionIndex(index);
@@ -109,6 +110,7 @@ const QuizPage = () => {
   }, [quizId]);
 
   const handleStartQuiz = async () => {
+    console.log("start quiz button ppressed");
     await axios.post(`/api/quiz/${quizId}/start`);
   };
 
