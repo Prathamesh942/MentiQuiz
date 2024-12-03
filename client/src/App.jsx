@@ -7,9 +7,11 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import HomePage from "./pages/HomePage";
-import CreateQuizPage from "./pages/CreateQuizPage";
 import AuthPage from "./pages/AuthPage";
 import "./App.css";
+import QuizCreator from "./pages/QuizCreator";
+import QuizPage from "./pages/QuizPage";
+import Landing from "./pages/Landing";
 
 function App() {
   const token = localStorage.getItem("authToken"); // Access token from AuthContext
@@ -17,7 +19,15 @@ function App() {
 
   // A protected route that redirects to login if the user is not logged in
   const ProtectedRoute = ({ children }) => {
-    return token ? children : <Navigate to="/auth" replace />;
+    if (!token) {
+      if (children.type === HomePage) {
+        return <Landing />;
+      }
+      // Redirect to AuthPage for other routes
+      return <Navigate to="/auth" replace />;
+    }
+    // Render children if the user is authenticated
+    return children;
   };
 
   return (
@@ -39,7 +49,15 @@ function App() {
           path="/create-quiz"
           element={
             <ProtectedRoute>
-              <CreateQuizPage />
+              <QuizCreator />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quiz/:quizId"
+          element={
+            <ProtectedRoute>
+              <QuizPage />
             </ProtectedRoute>
           }
         />
