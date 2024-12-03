@@ -256,11 +256,17 @@ const QuizCreator = () => {
           </div>
 
           <button
-            className="bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl flex justify-center items-center"
+            className={`bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl flex justify-center items-center ${
+              loading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
             onClick={handleSubmit}
+            disabled={loading} // Disable the button while loading
           >
-            {loading ? <img src="/loading.gif" className="w-10" /> : <></>}
-            {!loading ? "Done" : ""}
+            {loading ? (
+              <img src="/loading.gif" className="w-10 h-10" alt="Loading" />
+            ) : (
+              "Done"
+            )}
           </button>
         </div>
       </div>

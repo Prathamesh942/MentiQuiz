@@ -227,17 +227,19 @@ const QuizPage = () => {
               Final Leaderboard
             </h2>
             <ul className="space-y-3">
-              {quiz.leaderboard.map((player, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-between text-sm md:text-md font-medium text-gray-800 bg-gray-100 py-2 px-4 rounded-lg shadow-md"
-                >
-                  <span>
-                    {getMedalEmoji(index + 1)} {player.username}
-                  </span>
-                  <span>{player.score} points</span>
-                </li>
-              ))}
+              {[...quiz.leaderboard]
+                .sort((a, b) => b.score - a.score) // Sort in descending order by score
+                .map((player, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between text-sm md:text-md font-medium text-gray-800 bg-gray-100 py-2 px-4 rounded-lg shadow-md"
+                  >
+                    <span>
+                      {getMedalEmoji(index + 1)} {player.username}
+                    </span>
+                    <span>{player.score} points</span>
+                  </li>
+                ))}
             </ul>
           </div>
         )}

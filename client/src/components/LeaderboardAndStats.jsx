@@ -64,17 +64,19 @@ const LeaderboardAndStats = ({ leaderboard, stats }) => {
       {/* Leaderboard */}
       <h3 className="text-xl font-semibold text-gray-700 mb-6">Leaderboard</h3>
       <ul className="space-y-3">
-        {leaderboard.map((player, index) => (
-          <li
-            key={index}
-            className="flex items-center justify-between text-md font-medium text-gray-800 bg-gray-100 py-2 px-4 rounded-lg shadow-md"
-          >
-            <span>
-              {getMedalEmoji(index + 1)} {player.username}
-            </span>
-            <span>{player.score} points</span>
-          </li>
-        ))}
+        {[...leaderboard]
+          .sort((a, b) => b.score - a.score) // Sort in descending order by score
+          .map((player, index) => (
+            <li
+              key={index}
+              className="flex items-center justify-between text-md font-medium text-gray-800 bg-gray-100 py-2 px-4 rounded-lg shadow-md"
+            >
+              <span>
+                {getMedalEmoji(index + 1)} {player.username}
+              </span>
+              <span>{player.score} points</span>
+            </li>
+          ))}
       </ul>
 
       {/* Stats - Bar Graph */}
