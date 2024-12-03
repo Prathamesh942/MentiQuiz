@@ -224,7 +224,6 @@ const QuizPage = () => {
 
         {status === "closed" && (
           <div className="relative text-center">
-            {/* Display animation if localUser is in the top 3 */}
             {quiz.leaderboard
               .sort((a, b) => b.score - a.score)
               .slice(0, 3) // Top 3 players
