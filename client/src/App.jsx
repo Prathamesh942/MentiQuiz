@@ -15,7 +15,7 @@ import Landing from "./pages/Landing";
 import axios from "axios";
 
 // axios.defaults.baseURL = "https://documate-36bo.onrender.com";
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://mentiquiz.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {

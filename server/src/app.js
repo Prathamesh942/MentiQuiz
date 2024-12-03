@@ -28,7 +28,7 @@ const corsOptions = {
 };
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://quizy-weld.vercel.app",
     credentials: true,
   })
 );
