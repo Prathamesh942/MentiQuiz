@@ -256,7 +256,7 @@ const QuizCreator = () => {
           </div>
 
           <button
-            className="bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl"
+            className="bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl flex justify-center items-center"
             onClick={handleSubmit}
           >
             {loading ? <img src="/loading.gif" className="w-10" /> : <></>}
