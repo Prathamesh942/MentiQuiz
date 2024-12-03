@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Landing from "./Landing";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 
 const HomePage = () => {
   const [roomId, setRoomId] = useState(""); // State for storing Room ID
