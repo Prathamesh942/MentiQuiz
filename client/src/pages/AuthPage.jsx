@@ -35,6 +35,7 @@ const AuthPage = () => {
       localStorage.setItem("qzuser", formData.username);
       navigate("/");
     } catch (error) {
+      setLoading(false);
       setMessage(error.response?.data?.message || "Something went wrong");
     }
   };
@@ -107,9 +108,10 @@ const AuthPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full py-2 px-4 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
           >
-            {isLogin ? "Login" : "Register"}
+            {loading ? <img src="/loading.gif" className="w-10" /> : <></>}
+            {loading ? " " : isLogin ? "Login" : "Register"}
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
@@ -121,8 +123,7 @@ const AuthPage = () => {
               setMessage(""); // Clear messages when toggling
             }}
           >
-            {loading ? <img src="/loading.gif" /> : <></>}
-            {!loading && isLogin ? "Register here" : "Login here"}
+            {isLogin ? "Register here" : "Login here"}
           </span>
         </p>
       </div>

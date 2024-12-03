@@ -14,6 +14,7 @@ const QuizCreator = () => {
   const [numQuestions, setNumQuestions] = useState(5);
   const [defaultTime, setDefaultTime] = useState(20);
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const navigate = useNavigate();
 
   const handleQuestionChange = (e) => {
@@ -82,10 +83,11 @@ const QuizCreator = () => {
           time: defaultTime,
         },
       });
-      setLoading(false);
+      setGenerating(true);
       setQuestions(response.data);
       console.log("AI-generated questions added successfully!", response.data);
     } catch (error) {
+      setGenerating(false);
       console.error("Error generating AI questions:", error);
       alert("Failed to generate AI questions.");
     }
@@ -110,6 +112,7 @@ const QuizCreator = () => {
       alert("Quiz submitted successfully!");
       navigate(`/quiz/${quizId}`);
     } catch (error) {
+      setLoading(false);
       console.error("Error submitting quiz:", error);
       alert("Failed to submit quiz.");
     }
@@ -168,9 +171,12 @@ const QuizCreator = () => {
 
           <button
             onClick={fetchAiQuestions}
-            className="w-full md:w-auto bg-[#6D56C8] text-white px-4 py-2 rounded-lg hover:bg-[#5A49A3]"
+            className={`w-full md:w-auto ${
+              generating ? "bg-white" : "bg-[#6D56C8]"
+            } text-white px-4 py-2 rounded-lg hover:bg-[#5A49A3]`}
           >
-            Generate Questions
+            {generating ? <img src="ailoading.gif" className=" w-10" /> : <></>}
+            {!generating ? "Generate Questions" : ""}
           </button>
         </div>
 
@@ -253,7 +259,7 @@ const QuizCreator = () => {
             className="bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl"
             onClick={handleSubmit}
           >
-            {loading ? <img src="/loading.gif" /> : <></>}
+            {loading ? <img src="/loading.gif" className="w-10" /> : <></>}
             {!loading ? "Done" : ""}
           </button>
         </div>

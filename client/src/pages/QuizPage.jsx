@@ -162,7 +162,7 @@ const QuizPage = () => {
                 <QRCode
                   size={200}
                   className="w-full"
-                  value={`http://localhost:5173/quiz/${quizId}`}
+                  value={`https://quizy-weld.vercel.app/quiz/${quizId}`}
                 />
               </div>
             ) : (
