@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import LeaderboardAndStats from "../components/LeaderboardAndStats";
 import Navbar from "../components/Navbar";
 import QRCode from "react-qr-code";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const socket = io("https://mentiquiz.onrender.com");
 
@@ -145,33 +146,41 @@ const QuizPage = () => {
     <div className="mt-[100px]">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4">
-        {status === "open" && (
-          <div className="text-center mb-6 flex flex-col items-center gap-10">
-            {isCreator ? (
-              <div className="flex flex-col gap-6 w-full max-w-md">
-                <button
-                  onClick={handleStartQuiz}
-                  className="px-4 py-2 bg-[#6D56C8] text-white rounded-md hover:bg-blue-700 transition duration-300"
-                >
-                  Start Quiz
-                </button>
-                <span className="text-lg md:text-xl text-zinc-900">
-                  Room code:
-                  <span className="text-xl md:text-3xl"> {quizId}</span>
-                </span>
-                <QRCode
-                  size={200}
-                  className="w-full"
-                  value={`https://quizy-weld.vercel.app/quiz/${quizId}`}
+        {status === "closed" && (
+          <div className="relative text-center">
+            {/* Display animation if localUser is in the top 3 */}
+            {quiz.leaderboard
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 3) // Top 3 players
+              .some((player) => player.username === localUser) && (
+              <div className="absolute top-0 left-0 w-full h-full z-10 flex justify-center items-center">
+                <DotLottieReact
+                  src="https://lottie.host/23d31e8c-1de6-4e62-823f-c1d1399d3351/WXn0TMXn6Q.lottie"
+                  autoplay
+                  loop
                 />
               </div>
-            ) : (
-              <p className="text-lg text-gray-500">
-                Quiz will start soon. Please wait for the host to begin.
-                <img src="/wait.gif" alt="Waiting" className="w-32 mx-auto" />
-              </p>
             )}
-            <span className="text-sm md:text-lg">{userCount} Users joined</span>
+            <div className="relative z-20">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
+                Final Leaderboard
+              </h2>
+              <ul className="space-y-3">
+                {[...quiz.leaderboard]
+                  .sort((a, b) => b.score - a.score) // Sort in descending order by score
+                  .map((player, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between text-sm md:text-md font-medium text-gray-800 bg-gray-100 py-2 px-4 rounded-lg shadow-md"
+                    >
+                      <span>
+                        {getMedalEmoji(index + 1)} {player.username}
+                      </span>
+                      <span>{player.score} points</span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         )}
 
@@ -226,6 +235,10 @@ const QuizPage = () => {
             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">
               Final Leaderboard
             </h2>
+            <DotLottieReact
+              src="https://lottie.host/23d31e8c-1de6-4e62-823f-c1d1399d3351/WXn0TMXn6Q.lottie"
+              autoplay
+            />
             <ul className="space-y-3">
               {[...quiz.leaderboard]
                 .sort((a, b) => b.score - a.score) // Sort in descending order by score
