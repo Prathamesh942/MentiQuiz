@@ -75,7 +75,7 @@ const QuizCreator = () => {
   const fetchAiQuestions = async () => {
     try {
       console.log(aiPrompt, numQuestions, defaultTime);
-      setLoading(true);
+      setGenerating(true);
       const response = await axios.get("/api/generate-quiz", {
         params: {
           prompt: aiPrompt,
@@ -83,7 +83,7 @@ const QuizCreator = () => {
           time: defaultTime,
         },
       });
-      setGenerating(true);
+      setGenerating(false);
       setQuestions(response.data);
       console.log("AI-generated questions added successfully!", response.data);
     } catch (error) {

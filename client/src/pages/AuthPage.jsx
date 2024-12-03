@@ -33,7 +33,7 @@ const AuthPage = () => {
         setToken(response.data.data.accessToken);
       }
       localStorage.setItem("qzuser", formData.username);
-      navigate("/");
+      isLogin ? navigate("/") : navigate("/auth");
     } catch (error) {
       setLoading(false);
       setMessage(error.response?.data?.message || "Something went wrong");
