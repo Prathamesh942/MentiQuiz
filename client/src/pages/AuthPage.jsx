@@ -1,9 +1,13 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -21,14 +25,16 @@ const AuthPage = () => {
     const endpoint = isLogin ? "/api/v1/users/login" : "/api/v1/users/register";
 
     try {
+      setLoading(true);
       const response = await axios.post(endpoint, formData);
       setMessage(response.data.message || "Success");
       console.log(response.data.accessToken);
-
+      setLoading(false);
       if (isLogin) {
         setToken(response.data.data.accessToken);
       }
       localStorage.setItem("qzuser", formData.username);
+      navigate("/");
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
     }
@@ -116,7 +122,8 @@ const AuthPage = () => {
               setMessage(""); // Clear messages when toggling
             }}
           >
-            {isLogin ? "Register here" : "Login here"}
+            {loading ? <img src="/loading.gif" /> : <></>}
+            {!loading && isLogin ? "Register here" : "Login here"}
           </span>
         </p>
       </div>

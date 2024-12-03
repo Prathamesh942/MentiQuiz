@@ -13,6 +13,7 @@ const QuizCreator = () => {
   const [aiPrompt, setAiPrompt] = useState("");
   const [numQuestions, setNumQuestions] = useState(5);
   const [defaultTime, setDefaultTime] = useState(20);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleQuestionChange = (e) => {
@@ -73,7 +74,7 @@ const QuizCreator = () => {
   const fetchAiQuestions = async () => {
     try {
       console.log(aiPrompt, numQuestions, defaultTime);
-
+      setLoading(true);
       const response = await axios.get("/api/generate-quiz", {
         params: {
           prompt: aiPrompt,
@@ -81,6 +82,7 @@ const QuizCreator = () => {
           time: defaultTime,
         },
       });
+      setLoading(false);
       setQuestions(response.data);
       console.log("AI-generated questions added successfully!", response.data);
     } catch (error) {
@@ -99,11 +101,12 @@ const QuizCreator = () => {
         time: question.time,
       })),
     };
-    console.log("submit button pressed");
 
     try {
+      setLoading(true);
       const response = await axios.post("/api/v1/quiz", quizData);
       const quizId = response.data.roomId;
+      setLoading(false);
       alert("Quiz submitted successfully!");
       navigate(`/quiz/${quizId}`);
     } catch (error) {
@@ -250,7 +253,8 @@ const QuizCreator = () => {
             className="bg-[#6D56C8] text-white p-4 rounded-lg mt-8 w-full hover:bg-[#5A49A3] max-w-2xl"
             onClick={handleSubmit}
           >
-            Done
+            {loading ? <img src="/loading.gif" /> : <></>}
+            {!loading ? "Done" : ""}
           </button>
         </div>
       </div>

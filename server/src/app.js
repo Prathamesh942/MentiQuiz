@@ -153,7 +153,7 @@ app.post("/api/quiz/:quizId/start", async (req, res) => {
               await quiz.save();
               io.to(quizId).emit("quizClosed", quiz.leaderboard);
             }
-          }, 10000); // 3-second delay before the next question
+          }, 5000); // 3-second delay before the next question
         }
       }, 1000); // 1-second intervals for countdown
     };

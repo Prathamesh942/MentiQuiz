@@ -6,7 +6,7 @@ import LeaderboardAndStats from "../components/LeaderboardAndStats";
 import Navbar from "../components/Navbar";
 import QRCode from "react-qr-code";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://mentiquiz.onrender.com");
 
 function calculateScore(timeRemaining) {
   if (timeRemaining < 0) timeRemaining = 0;
@@ -73,7 +73,6 @@ const QuizPage = () => {
     });
 
     socket.on("question", (question, index) => {
-      console.log("question received");
       setShowQuestion(true);
       setCurrentQuestion(question);
       setQuestionIndex(index);
@@ -110,7 +109,6 @@ const QuizPage = () => {
   }, [quizId]);
 
   const handleStartQuiz = async () => {
-    console.log("start quiz button ppressed");
     await axios.post(`/api/quiz/${quizId}/start`);
   };
 
